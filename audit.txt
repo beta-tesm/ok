@@ -1,0 +1,236 @@
+Practical no. 1
+Aim: Creating a Forensic Image using FTK Imager/Encase Imager :
+- Creating Forensic Image
+- Check Integrity of Data
+- Analyze Forensic Image
+Steps:
+1.	Download and Install AccessData FKT Imager
+2.	Now create two folder source and dest
+ 
+3.	Add some data in source folder(text file or image)
+4.	Open FTK Imager and Click File, and then Create Disk Image, or click the button on the tool bar
+ 
+5.	Select the source you want to make an image of and click Next ((select content of a folder)
+ 
+6.	Select source to create image(browse and select source folder we have created earlier) and click on finish
+ 
+7.	Now in create image dialog click on Add button to add destination where image will be created
+8.	Provide dummy case information here and click on next
+ 
+9.	Now browse and select dest folder, give an image filename and set image fragment size to 15 and click on finish
+10.	After that image destination will be add then click on start
+ 
+11.	Image will be created
+ 
+12.	To add evidence image in FTK Imager, click on file and then add new evidence
+13.	Select source type as contents of a folder and click on next
+14.	Now browse and select dest folder where we have created image and click on finish
+ 
+15.	Evidence will be added, to view data expand the dest folder in evidence tree tab 
+ 
+Conclusion: 	Hence we have created forensic image using FTK Imager and added evidence into FTK Imager for further analysis
+ 
+Practical no. 2
+Aim:
+Data Acquisition: - Perform data acquisition using: - USB Write Blocker + FTK Imager
+
+Steps:
+Enable USB Write Block in Windows 10, 8 and 7 using registry
+1.	Press the Windows key + R to open the Run box. Type regedit and press Enter
+2.	This will open the Registry Editor. Navigate to the following key:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control
+3.	Right-click on the Control key in the left pane, select New -> Key.
+4.	Name it as StorageDevicePolicies.
+ 
+5.	Select the StorageDevicePolicies key in the left pane, then right-click on any empty space in the right pane and select New -> DWORD (32-bit) Value. Name it WriteProtect.
+6.	Double-click on WriteProtect and then change the value data from 0 to 1.
+ 
+7.	The new setting takes effect immediately. Every user who tries to copy / move data to USB devices or format USB drive will get the error message “The disk is write-protected”.
+8.	We can only open the file in the USB drive for reading, but it’s not allowed to modify and save the changes back to USB drive.
+Any option for modifying file on usb drive will be not visible(new, delete,cut)
+If you try to edit and save text file in notepad you will get error like this
+ 
+9.	Now Create image of the USB drive using FTK imager
+10.	Open ftk imager and click on file and then create disk file and select source as physical drive
+ 
+11.	Select usb drive and click on finish
+ 
+12.	Now Click on add button to add new destination to create disk image, select destination image type as Raw(dd)
+ 
+13.	Select destination path and give an file name for image and click on next, image destination will be added
+ 
+14.	Click on start, it will take some time to create disk image(depends on usb size)
+
+ 
+
+Conclusion: Hence we have protected write access to usb drive and create usb drive image.
+ 
+Practical no. 3
+Aim: Forensics Case Study: - Solve the Case study (image file) provide in lab using Autopsy
+
+Steps:
+1.	Download and install Autopsy
+2.	Before we start using Autopsy we have to create disk image or you can use usb image created in practical 2. Else create new logical image.
+3.	Now open autopsy and create new case
+ 
+4.	Provide case information and optional information then click on finish
+
+ 
+5.	New case will be created, in case window click on add data source
+6.	Leave host as default and click on next
+ 
+7.	Select source type as disk image
+ 
+8.	Browse and select disk image we have created earlier and click on next
+ 
+9.	Select all modules and click on next
+ 
+10.	Data source will be added
+ 
+11.	Expand the tree from left side panel to view the files and then expand the deleted files node
+ 
+12.	To recover the file, go to view node-> Deleted Files node , here select any file and right click on it than select Extract Files option.
+ 
+13.	Click on Generate Report from autopsy window and Select the Excel format and click on next
+ 
+14.	Select report type as excel report
+ 
+15.	Select data source
+ 
+16.	Leave report setting as default and click on finish, report will be create
+ 
+ 
+Conclusion: Hence we have done case study of autopsy
+ 
+Practical no. 4
+Aim: Capturing and analyzing network packets using Wireshark (Fundamentals): - Identification the live network - Capture Packets - Analyze the captured packets
+Steps: 
+1.	Open Wireshark and click on network interface you want to capture data from(eg. Wifi or Ethernet  
+ 
+ 
+
+2.	Now go on browser and open any unsecured website i.e www.httpforever.com and perform some activity on the website.
+3.	Now come back to Wireshark and enter http in the search bar.
+ 
+4.	Now click on the get request and see the details.
+ 
+ 
+Practical no. 5
+Aim: Web Browser Forensics 
+•	Web Browser working 
+•	Forensics activities on browser 
+•	Cache / Cookies analysis 
+•	Last Internet activity
+
+Steps: 
+1.	Download and install Browser History Examiner
+2.	Start install Browser History Examiner and click on capture history
+ 
+3.	Select Capture history from this computer and click on next
+ 
+4.	Now select user profile, Browsers and data you want to capture, also provide destination to store captured files/data and then click on capture.
+ 
+5.	Once history capture is completed it will ask to load captured history, click on yes to load history then history will be loaded into dashboard
+ 
+6.	Click on Cookies option in left sidebar to view browsers cookies
+ 
+
+7.	Click on Cached images to view cached images in browser
+ 
+8.	Click on Bookmarks to check bookmarked urls
+ 
+9.	Click on cached files to view cached webpages files
+ 
+10.	To add record to report, right click on any record and click on add to report
+ 
+11.	And to generate report, click on file> report> save as pdf or html
+
+Generate report 
+ 
+12.	To export report, click on file> export>select your preferred format, select data you want to export in report
+  
+ 
+Conclusion: Hence we have performed web browser forensic analysis using browser history examiner
+ 
+Practical No-6
+Aim: Using Sysinternals tools for Network Tracking and Process Monitoring: -Check Sysinternals tools -Monitor Live Processes -Capture RAM-Capture -TCP/UDP packets -Monitor Hard Disk -Monitor Virtual Memory -Monitor Cache Memory
+Steps: 
+1.	Check Sysinternals tools
+Windows Sysinternals tools are utilities to manage, diagnose, troubleshoot, and monitor a Microsoft Windows environment
+The following are the categories of Sysinternals Tools:
+•	File and Disk Utilities
+•	Networking Utilities
+•	Process Utilities 
+•	Security Utilities
+•	System Information Utilities 
+•	Miscellaneous Utilities
+
+2.	Monitor Live Processes:
+a.	Open ProcMan tool
+ 
+b.	Click on filter > filter
+ 
+c.	Add some filter (like firefox.exe or chrome.exe)
+ 
+d.	Click on Tools> Process tree
+ 
+e.	Click on Tools> File summary
+ 
+
+3.	Capture TCP/UDP packets
+a.	Open tcpview tool
+ 
+b.	Right click on any packet > whois  
+c.	Information about packet
+ 
+4.	Monitor Virtual Memory
+a.	Open the Diskmon tool(as administrator)
+ 
+5.	Monitor Cache Memory
+a.	Open the VMMap tool and select process to launch
+ 
+b.	Process information
+ 
+Conclusion: Hence we have studied how to use Sysinternals tools for Network Tracking and Process Monitoring
+ 
+Practical no. 7
+Aim: Recovering and Inspecting deleted files
+•	Check for Deleted Files
+•	Recover the Deleted Files
+•	Analyzing and Inspecting the recovered files
+Steps:
+1.	Before creating disk image, add some files in that disk and delete some of them so we will able to recover deleted files. I have deleted duck.jpg and text1.txt
+ 
+2.	Open AccessData FTK Imager. Click on File > Create Disk Image.
+3.	Select source type as logical drive
+ 
+4.	Select source drive
+ 
+5.	click on add destination, select Raw(dd) and click on next
+6.	provide case information and click on next
+7.	select destination folder and enter name for disk image file and set image fragment size to 100, click on finish new destination will be added
+ 
+8.	click on start, it will start creating disk image and image will be created
+ 
+
+9.	Now open autopsy and create new case
+ 
+10.	Provide case information and optional information then click on finish
+
+ 
+11.	New case will be created, in case window click on add data source
+12.	Leave host as default and click on next
+ 
+13.	Select source type as disk image
+ 
+14.	Browse and select disk image we have created earlier and click on next
+ 
+15.	Select all modules and click on next
+16.	Data source will be added
+17.	Expand the tree from left side panel to view the files and then expand the deleted files node
+ 
+18.	Select and right click on files you want recover and click on export file(s) option
+ 
+19.	Select folder to export files and deleted files will be recovered
+ 
+Conclusion: hence we have successfully recovered deleted files using autopsy
