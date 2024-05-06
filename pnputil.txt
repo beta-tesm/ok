@@ -1,0 +1,330 @@
+Practical 1
+Aim: 2D Linear Convolution between two 2D matrices
+Theory:
+Convolution involving one-dimensional signals is referred to as 1D convolution or
+just convolution. Otherwise, if the convolution is performed between two signals
+spanning along two mutually perpendicular dimensions (i.e., if signals are twodimensional in nature), then it will be referred to as 2D convolution.
+In the digital domain, convolution is performed by multiplying and accumulating the
+instantaneous values of the overlapping samples corresponding to two input signals,
+one of which is flipped. This definition of 1D convolution is applicable even for 2D
+convolution except that, in the latter case, one of the inputs is flipped twice.
+This kind of operation is extensively used in the field of digital image processing
+wherein the 2D matrix representing the image will be convolved with a
+comparatively smaller matrix called 2D kernel.
+
+Code:
+
+clc;
+disp('for first matrix')
+m=input("enter rows of first matrix")
+n=input("enter columns of first matrix")
+for i=1:m
+for j=1:n
+x(i,j)=input("enter the numbers")
+end
+end
+disp('for second matrix')
+a=input("enter rows of second matrix")
+b=input("enter columns of second matrix")
+for i=1:a
+for j=1:b
+y(i,j)=input("enter the numbers")
+end
+end
+con=conv2(x,y)
+disp(' fisrt matrix x=',x)
+disp('second matrix y=',y)
+disp('convolution =',con)
+
+
+Practical 2
+Aim: Circular Convolution between two 2D matrices
+Theory:
+Circular convolution, also known as cyclic convolution, is a special case of periodic
+convolution, which is the convolution of two periodic functions that have the same
+period. Periodic convolution arises, for example, in the context of the discrete-time
+Fourier transform.
+The two basic methods normally used for circular convolution are −
+▪ Concentric circle method,
+▪ Matrix multiplication method.
+Code:
+
+clc;
+disp('for first matrix')
+m=input("enter rows of first matrix")
+n=input("enter columns of firstmatrix")
+for i=1:m
+for j=1:n
+d(i,j)=input("enter the numbers")
+end
+end
+disp('for second matrix')
+a=input("enter rows of second matrix")
+b=input("enter columns of second matrix")
+for i=1:a
+for j=1:b
+h1(i,j)=input("enter the numbers")
+end
+end
+y=conv2(d,h1)
+y1=[y(:,1) + y(:,$),y(:,2)];
+y2=[y1(1,:)+y1($,:);y1(2,:)];
+disp(y1)
+disp( ' result of circular',y2)
+disp('convolution result y =',y)
+
+
+
+Practical 3
+Aim: Correlation between two 2D matrices
+Theory:
+Correlation is a measure of similarity between two signals.
+There are two types of correlation:
+• Auto correlation
+• Cros correlation
+Correlation is measurement of the similarity between two signals/sequences.
+Convolution is measurement of effect of one signal on the other signal. The
+mathematical calculation of Correlation is same as convolution in time domain, except
+that the signal is not reversed, before the multiplication process.
+Code:
+
+close(winsid())
+clc;
+disp("for first matrix")
+m=input("no of rows")
+n=input("no of columns")
+for i=1:m
+for j=1:n
+x(i,j)=input("enter elements")
+end
+end
+disp("for second matrix")
+a=input("no of rows")
+b=input("no of columns")
+for i=1:a
+for j=1:b
+h2(i,j)=input("enter elements")
+end
+end
+h=h2($:-1:1,:)
+h3=h(:,$:-1:1)
+y=conv2(x,h3)
+disp(y)
+
+
+
+Practical 4
+Aim: DFT of 4x4 gray scale image
+Theory:
+Discrete fourier transform.
+Since we are dealing with images, and infact digital images , so for digital images we
+will be working on discrete fourier transform
+Consider the above Fourier term of a sinusoid. It include three things.
+• Spatial Frequency
+• Magnitude
+• Phase
+The spatial frequency directly relates with the brightness of the image. The magnitude
+of the sinusoid directly relates with the contrast. Contrast is the difference between
+maximum and minimum pixel intensity. Phase contains the color information.
+The formula for 2 dimensional discrete Fourier transform is given below.
+The discrete Fourier transform is actually the sampled Fourier transform, so it contains
+some samples that denotes an image. In the above formula f(x,y) denotes the image ,
+and F(u,v) denotes the discrete Fourier transform. The formula for 2 dimensional
+inverse discrete Fourier transform is given below.
+The inverse discrete Fourier transform converts the Fourier transform back to the
+image
+Code:
+
+clc;
+f=[1,1,1,1;1,1,1,1;1,1,1,1;1,1,1,1]
+N=4
+for i=0:N-1 for j=0:N-1
+W(i+1,j+1)=int(cos(2*%pi*i*j/N)-%i*sin(2*%pi*i*j/N)); end
+end
+disp(W,'Kernel matrix of dft')
+wt=W'
+F=W*f*wt
+disp(F) 
+
+
+
+Practical 5
+Aim: Image Enhancement Techniques
+(A)-Brightness enhancement of an image
+(B)-Contrast Manipulation
+(C)-Image negative
+
+
+(A)-Brightness enhancement of an image
+Theory:
+Brightness is a relative term. It depends on your visual perception. Since brightness is
+a relative term, so brightness can be defined as the amount of energy output by a
+source of light relative to the source we are comparing it to. In some cases we can
+easily say that the image is bright, and in some cases, its not easy to perceive.
+Code:
+
+close(winsid());
+clc;
+a=imread("C:\Users\VISHAL\Downloads\duck.jpg");
+d=rgb2gray(a);
+b=d+50; c=d-50;
+subplot(1,3,1), imshow(a), title("Original Image")
+subplot(1,3,2), imshow(b), title("Brightness Enhanced Image")
+subplot(1,3,3), imshow(c), title("Brightness Suppressed Image")
+
+
+
+(B) Contrast Manipulation
+Theory:
+Contrast can be simply explained as the difference between maximum and minimum
+pixel intensity in an image. Contrast is the difference in brightness between objects or
+regions.
+The difference in brightness between light and dark areas of an image. Contrast
+determines the number of shades in the image. A low-contrast image (left) retains
+detail but tends to lack dimension and looks soft.
+Code:
+
+close(winsid());
+clc;
+a= imread("C:\Users\VISHAL\Downloads\cameraman.png");
+b=double(a)*0.5;
+b=uint8(b);
+c=double(a)*1.2;
+c=uint8(c);
+subplot(1,3,1), imshow(a), title("Original Image")
+subplot(1,3,2), imshow(b), title("Contrast Enhanced Image")
+subplot(1,3,3), imshow(c), title("Contrast Suppressed Image")
+
+
+
+(c) Image negative
+Theory:
+A positive image is a normal image. A negative image is a total inversion, in which
+light areas appear dark and vice versa. A negative color image is additionally colorreversed, with red areas appearing cyan, greens appearing magenta, and blues
+appearing yellow, and vice versa.
+Code:
+
+close(winsid()); clc;
+a= imread("C:\Users\VISHAL\Downloads\cameraman.png");
+b=255-a;
+subplot(1,2,1), imshow(a), title("Original Image")
+subplot(1,2,2), imshow(b), title("Negative Image")
+
+
+Practical 6
+Aim: Perform threshold operation(image segmentation)
+Theory:
+Thresholding is a type of image segmentation, where we change the pixels of an image
+to make the image easier to analyze. In thresholding, we convert an image from color
+or grayscale into a binary image, i.e., one that is simply black and white.
+Code:
+
+a=imread("C:\Users\VISHAL\Downloads\nature.jpg")
+[m,n]=size(a)
+t=input("enter threshold")
+for i=1:m
+for j=1:n
+if(a(i,j)<t)
+b(i,j)=0;
+else
+b(i,j)=255;
+end
+end
+end
+figure(1);
+imshow(uint8(a));
+title('original image')
+figure(2);
+imshow(uint8(b));
+title('threshold image') 
+
+
+
+Practical 7
+Aim: Color Image Processing
+A. Perform gray level slicing
+B. Dilation and Erosion
+(A) Perform grey level sclicing
+Theory:
+Grey level slicing is equivalent to band pass filtering. It manipulates group of intensity
+levels in an image up to specific range by diminishing rest or by leaving them alone.
+This transformation is applicable in medical images and satellite images such as X-ray
+flaws, CT scan.
+Code:
+
+x=imread("C:\Users\VISHAL\Downloads\duck.jpg")
+y=double(x);
+[m,n]=size(y)
+L=max(x);
+a=round(L/2);
+b=L;
+for i=1:m
+for j=1:n
+if(y(i,j)>=a & y(i,j)<=b)
+z(i,j)=255;
+else
+z(i,j)=0;
+end
+end
+end
+subplot(1,2,1), imshow(uint8(x)),title('original image')
+subplot(1,2,2),imshow(uint8(z)),title('threshold image') 
+
+
+
+(B) Dilation Erosion
+Theory:
+The most basic morphological operations are dilation and erosion. Dilation adds
+pixels to the boundaries of objects in an image, while erosion removes pixels on
+object boundaries. Erosion is the counter-process of dilation. If dilation enlarges an
+image then erosion shrinks the image. The way the image is shrunk is determined by
+the structuring element. The structuring element is normally smaller than the image
+with a 3 x 3 size.
+Code:
+
+clc;
+close(winsid())
+a=imread("C:\Users\VISHAL\Downloads\nature2.jpg")
+b=im2bw(a,0.5)
+se=imcreatese('rect',3,3)
+c=imdilate(a,se)
+d=imerode(a,se)
+subplot(2,2,1), imshow(a), title("Original image")
+subplot(2,2,2), imshow(b), title("Binary image")
+subplot(2,2,3), imshow(c), title("Dilated image")
+subplot(2,2,4), imshow(d), title("Eroded image")
+
+
+
+Practical 8
+Aim: Perform Edge Detection
+Theory:
+The concept of edge detection is used to detect the location and presence of edges by
+making changes in the intensity of an image. Different operations are used in image
+processing to detect edges. It can detect the variation of grey levels but it quickly
+gives response when a noise is detected. In image processing, edge detection is a very
+important task. Edge detection is the main tool in pattern recognition, image
+segmentation and scene analysis. It is a type of filter which is applied to extract the
+edge points in an image. Sudden changes in an image occurs when the edge of an
+image contour across the brightness of the image.
+The basic idea behind edge detection is as follows:
+1. To highlight local edge operator use edge enhancement operator.
+2. Define the edge strength and set the edge points.
+Code:
+
+
+close(winsid());
+clc;
+a=imread("C:\Users\VISHAL\Downloads\duck.jpg");
+b=rgb2gray(a);
+c=edge(b, 'sobel');
+d=edge(b, 'prewitt');
+e=edge(b, 'log');
+f=edge(b,'canny');
+subplot(2,3,1), imshow(a), title("Original Image")
+subplot(2,3,2), imshow(b), title("Grayscale Image")
+subplot(2,3,3), imshow(c), title("Sobel Image")
+subplot(2,3,4), imshow(d), title("Prewitt Image")
+subplot(2,3,5), imshow(e), title("Log Image")
+subplot(2,3,6), imshow(f), title("Canny Image")
+
