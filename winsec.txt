@@ -355,3 +355,178 @@ Results: By leveraging Amazon EC2, Microsoft Azure, and Google Cloud Platform, T
 Overall, by strategically combining services from Amazon EC2, Microsoft Azure, and Google Cloud Platform, TechSolutions Inc. achieves a scalable, reliable, and cost-effective cloud infrastructure that supports its growth and innovation objectives.
  
 
+
+
+
+
+
+
+
+Let’s get started!
+Step 1: Select the checkbox Windows subsystem for Linux
+ You will have to restart your system after completing step 1, so
+make sure you close all files before you start performing the
+following steps.
+ Press the Windows key and type “Turn Windows feature on or
+off” in the windows search box.
+ Click on it to open Windows Features. Select the checkbox in
+front of “Windows Subsystem for Linux” to enable the
+feature.
+Fig. 1. Windows Features
+Step 2: Installation of Ubuntu 22.04 (any version) Linux App
+ Press the Windows key, search Microsoft store on the
+windows search box and open it.
+ In the Microsoft store, search for Ubuntu 22.04. At first, it
+may give you an error saying “the thing you’re looking for isn’t
+here”.
+Fig. 2. Error in Microsoft store
+ To resolve this problem, click on “Refresh the page” four to five
+times and it will open the installation page of Ubuntu 22.04.
+Click on the Get button and download Ubuntu 22.04.
+Fig. 3. Ubuntu 20.04 in Microsoft Store
+Step 3: Installation of Apache, MySQL plus PHP
+Note: To properly paste the command, CTRL+C from blog
+and Right-click on ubuntu cmd, (copy the command given and
+right-click on the ubuntu command prompt.)
+ After installation of Ubuntu 20.04 LTS, a command prompt
+will open where paste these commands one by one and
+execute it. A screenshot is added below every command for
+clarity.
+sudo apt-get update
+Fig. 4. Sudo apt-get update on ubuntu 20.04 cmd
+ Install Apache2
+sudo apt-get install apache2
+ Install MySQL server and MySQL client, PHP
+sudo apt-get install mysql-server mysql-clientsudo
+sudo apt-get update
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt install php7.4 libapache2-mod-php7.4 php7.4-imagick php7.4-common
+php7.4-mysql php7.4-gmp php7.4-imap php7.4-json php7.4-pgsql php7.4-ssh2
+php7.4-sqlite3 php7.4-ldap php7.4-curl php7.4-intl php7.4-mbstring php7.4-
+xmlrpc php7.4-gd php7.4-xml php7.4-cli php7.4-zip
+Fig. 5. MySQL and PHP installation Commands on Ubuntu 20.04
+sudo apt-get -y install libmcrypt-devsudo apt-get install phpintl
+Fig. 6. Installation commands on Ubuntu 20.04
+Step 4: Confirm Apache installation by visiting localhost
+ Run the following command to start Apache2. If this command
+gives you a warning, run the same command again and it will
+start Apache.
+sudo service apache2 start
+ To confirm successful installation and working of Apache
+server, go to the browser and
+type http://localhost/ or http://127.0.0.1/
+Fig. 7. Apache2 Ubuntu Default Page
+Step 5: Download Owncloud server
+ Following are the commands to get the files required for
+setting up Owncloud:
+sudo apt install wget unzip
+wget https://download.owncloud.org/community/owncloud-completelatest.zip
+Fig. 9. Download Owncloud-complete-latest.zip file
+Executing the following command will unzip the contents of the zip
+file in the Owncloud folder. This command may take 7–8 minutes
+depending upon your system.
+unzip owncloud-complete-latest.zip
+To move this extracted content from the owncloud folder to
+/var/www/ run the following command:
+sudo mv owncloud/ /var/www/sudo chown -R www-data:www-data
+/var/www/owncloud/
+The above commands will automatically download and extract the
+Owncloud files under the Apache directory.
+Step 6: Creation of an Owncloud configuration file for Apache
+Now create an Owncloud configuration file by executing the
+following command on Ubuntu cmd:
+sudo nano /etc/apache2/sites-available/owncloud.conf
+And then copy-paste the following lines in the opened file to point
+the Apache root directory towards the Owncloud as shown in Fig. 9.
+Alias /owncloud "/var/www/owncloud/"
+<Directory /var/www/owncloud/>
+Options +FollowSymlinks
+AllowOverride All
+<IfModule mod_dav.c>
+Dav off
+</IfModule>
+SetEnv HOME /var/www/owncloud
+SetEnv HTTP_HOME /var/www/owncloud
+</Directory>
+After you paste lines in the .conf file, press CTRL+O to Write Out.
+Fig. 10. owncloud.conf content
+Press Enter in front of “File Name to Write: /etc/apache2/sitesavailable/owncloud.conf” (Don’t write M-A).
+Fig. 11. owncloud.conf file
+In front of “Save this file”, Type Y for Yes and press Enter.
+Press CTRL+X to save and exit.
+Fig. 12. owncloud.conf file
+Step 7: Create a symlink for Owncloud
+To tell the Apache about the Owncloud configuration we will create a
+reference or symlink using the below command:
+sudo ln -s /etc/apache2/sites-available/owncloud.conf
+/etc/apache2/sites-enabled/owncloud.conf
+Step 8: Additional modules installation
+Add these additional modules for proper Owncloud working.
+sudo a2enmod headers env dir mime unique_id
+After adding the modules restart the Apache server using the
+command:
+sudo service apache2 restart
+Step 9: Create a MySQL database for Owncloud
+For every command in step 9, refer figure at the end of the step.
+First of all stop and start MySQL. If it gives you a warning/error, try
+re-executing the same command and you are good to go.
+sudo /etc/init.d/mysql stopsudo /etc/init.d/mysql start
+Now let’s create a MySQL user and database for OwnCloud:
+sudo mysql
+We are creating a database with the name owncloud you can use
+some other name if you want.
+CREATE DATABASE owncloud;
+Now create a user with a password and at the same time assign all
+rights of the above-created database to that.
+CREATE USER 'vishal'@'localhost' IDENTIFIED WITH
+mysql_native_password BY 'vishal';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER,
+CREATE TEMPORARY TABLES, LOCK TABLES ON owncloud.* TO
+'vishal'@'localhost';
+Flush privileges operations:
+FLUSH PRIVILEGES;
+Exit the MySQL using the command:
+exit
+Fig. 13. Create MySQL database for Owncloud
+Step 10: Install, Setup, and Configuring ownCloud server on
+Windows 10
+ After completing all previous steps, Now, start apache2 and
+MySQL.
+sudo service apache2 startsudo /etc/init.d/mysql start
+ Go to the browser and type http://localhost/owncloud/
+or http://127.0.0.1/owncloud.
+ If you get an error that “The requested URL was not found on
+this server. Apache/2.4.41 (Ubuntu) Server at 192.168.0.3 Port
+80”, Try running the following command in Ubuntu.
+
+sudo service apache2 restart
+ After visiting http://localhost/owncloud/ create an admin
+account for installed Owncloud.
+Fig. 14. Create an admin account on Owncloud
+ After that, in the storage and database option, add MySQL
+database details created above; which means database
+username (‘user’ in our case), its password (password is also
+‘user’), and the database name (‘owncloud’ in our case).
+Fig. 15. Configure database and Finish setup
+ After providing all information, click on the Finish setup
+button. This setup may take 10–12 minutes depending upon
+your system.
+Step 11: Login Owncloud server
+ After setup is finished, a login page will be provided.
+ Login with the username and password given in the previous
+step and this completes the installation of owncloud on
+windows.
+Fig. 16. Login to OwnCloud
+Fig. 17. Owncloud user interface
+Fig. 18. Owncloud user interface
+If you have completed all the above steps and compared your output
+with the end screen, that means you have successfully installed
+Owncloud!!
+Share and help your friends as well :)
+
+
+https://medium.com/@minakshee.narayankar2000/error-free-installation-of-owncloud-server-on-windows-10-within-30-minutes-using-wsl-6450c38b1ae0
+
+https://www.how2shout.com/how-to/how-to-install-owncloud-server-on-windows-10-wsl.html
